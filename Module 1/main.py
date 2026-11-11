@@ -44,7 +44,7 @@ async def generate_explanation(request: TextRequest):
     """
 
     try:
-        response = await ai_client.models.generate_content(
+        response = ai_client.models.generate_content(
             model=model,
             contents=prompt,
             config=types.GenerateContentConfig(
@@ -80,7 +80,7 @@ async def analyze_image(file: UploadFile = File(...), question: str = Form(...))
         3. "related_concepts": list of strings (concepts related to the image and question)
         """
 
-        response = await ai_client.models.generate_content(
+        response = ai_client.models.generate_content(
             model=model,
             contents=[prompt, image_input],
             config=types.GenerateContentConfig(
@@ -116,7 +116,7 @@ async def evaluate_audio_answer(file: UploadFile = File(...), question: str = Fo
         3. "feedback": string (constructive feedback for improvement)
         """
 
-        response = await ai_client.models.generate_content(
+        response = ai_client.models.generate_content(
             model=model,
             contents=[prompt, audio_input],
             config=types.GenerateContentConfig(
@@ -153,7 +153,7 @@ async def analyze_video(file: UploadFile = File(...), question: str = Form(...))
         2. "mcq_questions": list of objects with "question", "options" (list of strings), and "correct_answer" (string)
         """
 
-        response = await ai_client.models.generate_content(
+        response = ai_client.models.generate_content(
             model=model,
             contents=[prompt, video_input],
             config=types.GenerateContentConfig(
