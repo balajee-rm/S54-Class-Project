@@ -26,6 +26,11 @@ class User(BaseModel):
 def create_access_token(data: dict):
     return jwt.encode({**data, "exp": datetime.utcnow() + timedelta(minutes=30)}, SECRET_KEY, algorithm=ALGORITHM)
 
+def get_current_user(token: str = Header(...)):
+    try:
+        return jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])["username"]
+    except Exception:
+        raise HTTPException(status_code=401, detail={"message": "Token Invalid or Expired"})
 
 @app.post("/singup")
 async def signup(user: User):
