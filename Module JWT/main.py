@@ -34,7 +34,7 @@ def get_current_user(token: str = Header(...)):
 
 @app.post("/singup")
 async def signup(user: User):
-    if await user_collection.find_one({username: user.username}):
+    if await user_collection.find_one({"username": user.username}):
         raise HTTPException(status_code=400, detail={"message": "User Already Exist"})
     hashed_password = pwd_context.hash(user.password)
     await user_collection.insert_one({"username": user.username, "password": hashed_password})
@@ -43,7 +43,7 @@ async def signup(user: User):
 @app.post("/singin")
 async def signin(user: User):
     db_user = await user_collection.find_one({"username": user.username})
-    if not db_user or not pwd_context.verify(user.password, db_user.password):
+    if not db_user or not pwd_context.verify(user.password, db_user["password"]):
         raise HTTPException(status_code=401, detail={"message": "Invalid User"})
     token = create_access_token({"username": user.username}) 
     return JSONResponse(status_code=200, content={"access_token": token})
