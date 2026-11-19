@@ -1,2 +1,11 @@
 Module 1/.env
 Module JWT/.env
+
+# Module 2
+Module 2/.env
+Module 2/venv/
+Module 2/__pycache__/
+Module 2/*.py[cod]
+Module 2/llm_decoder_model/
+Module 2/wandb/
+Module 2/runs/
